@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2.5
+    container_name: keycloak
+    ports:
+      - "8080:8080"
+    environment:
+      # প্রশাসক ইউজার সেটআপ
+      KC_ADMIN: admin
+      KC_ADMIN_PASSWORD: ChangeMe123!  # 🔐 পাসওয়ার্ড পরিবর্তন করুন!
+      
+      # ডাটাবেস (H2-এর পরিবর্তে PostgreSQL ব্যবহার করুন)
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: keycloak_password
+      
+      # সার্ভার কনফিগ
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8080
+      KC_HTTP_ENABLED: 'true'
+
+    command: start  # উৎপাদন মোড (start-dev নয়)
+
+    volumes:
+      - keycloak-data:/opt/keycloak/data  # সেশন, ক্যাশে ইত্যাদি
+
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL ডাটাবেস (Keycloak-এর জন্য)
+  db:
+    image: postgres:15
+    container_name: keycloak-db
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak_password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  keycloak-data:
+  db-data:
