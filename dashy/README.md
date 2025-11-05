@@ -161,6 +161,5 @@ Found a bug or want a feature? Open an issue or contribute on GitHub!
 ---
 
 Made with ❤️ for self-hosters and tinkerers.
-```
 
 ---
