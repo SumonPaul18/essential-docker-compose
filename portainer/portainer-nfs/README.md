@@ -1,7 +1,7 @@
 # Run Portainer on Current Directory
 ####
-    git clone https://github.com/SumonPaul18/portainer.git
-    cd portainer
+    git clone https://github.com/SumonPaul18/portainer-nfs.git
+    cd portainer-nfs
     docker compose up -d
     docker compose ps
 
