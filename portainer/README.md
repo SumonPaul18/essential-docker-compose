@@ -1,7 +1,7 @@
 # Run Portainer on Current Directory
 ####
-    git clone https://github.com/SumonPaul18/portainer.git
-    cd portainer
+    git clone https://github.com/SumonPaul18/essential-docker-compose.git
+    cd essential-docker-compose/portainer
     docker compose up -d
     docker compose ps
 
