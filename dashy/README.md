@@ -56,7 +56,11 @@ services:
 EOF
 ```
 
-4. **Save the following as `docker-compose.yml`:**
+4. **Save the following as ``docker-compose.yml``:**
+
+```
+nano docker-compose.yml
+```
 
 ```yaml
 version: "3.8"
@@ -83,7 +87,7 @@ services:
 5. **Start the container:**
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 6. **Open in your browser:**
