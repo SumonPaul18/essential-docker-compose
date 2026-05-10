@@ -1,15 +1,17 @@
-version: '3.8'
-
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.2.5
+    container_name: keycloak-dev
     ports:
       - "8181:8080"
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_HTTP_ENABLED: true
-      # Include the protocol and port in the hostname URL
-      KC_HOSTNAME: http://192.168.68.80:8181
+      KC_HOSTNAME: 192.168.68.180
+      KC_HOSTNAME_PORT: 8181
       KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_BACKCHANNEL: false
     command: start-dev
+    restart: unless-stopped
+
